@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+	<!-- ********** init misc stuff ********** -->
+	<set name="version" value="1.0.0" />
+	<haxedef name="version" value="${version}" />
+
+	<meta title="iPhone X Test" package="org.openfl.test.iphonex" version="${version}" company="Stickleback Games" />
+	<source path="src" />
+
+	<!-- ********** stickleback conditionals ********** -->
+	<app main="Main" path="bin" file="Test" />
+
+	<!-- ********** haxe libs ********** -->
+	<!-- OpenFL 3.6.1 and Lime 2.9.1 -->
+	<set name="legacy" unless="flash" />
+	<haxedef name="openfl-legacy" unless="flash" />
+	<haxelib name="openfl" />
+
+	<!-- ********** HXCPP ********** -->
+	<haxedef name="HXCPP_VERBOSE" />
+	<haxedef name="HXCPP_GC_SUMMARY" />
+	<haxedef name="HXCPP_M32" if="windows" />
+
+	<!-- *************************************************** DEPLOYMENT *************************************************** -->
+
+	<!-- window setup -->
+	<window background="#000000" fps="60" orientation="landscape" hardware="true" allow-shaders="true" require-shaders="false" depth-buffer="false" stencil-buffer="false" vsync="true" />
+	<window width="1334" height="750" antialiasing="0" fullscreen="false" resizable="false" borderless="true" if="desktop" />
+	<window width="0" height="0" antialiasing="0" fullscreen="true" resizable="false" borderless="true" if="mobile" />
+
+	<!-- ********** ios deployment ********** -->
+	<section if="ios">
+		<config:ios deployment="8.0" />
+		<config:ios devices="universal" />
+		<config:ios prerendered-icon="true" />
+		<template path="templates/PROJ-Info.plist" rename="PROJ-Info.plist" />
+	</section>
+
+	<!-- ********** android deployment ********** -->
+	<section if="android">
+		<config:android install-location="preferExternal" />
+		<config:android minimum-sdk-version="10" target-sdk-version="26" />
+		<architecture name="armv7" />
+		<template path="templates/AndroidManifest.xml" rename="AndroidManifest.xml" />
+		<!--<certificate path="signing/android/release.keystore" password="" alias-password="" alias="" />-->
+	</section>
+
+</project>
